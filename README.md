@@ -3,13 +3,14 @@ Page as Script
 Lets you treat writing a web page with parameters like writing a script with arguments. 
 
 - Instead of `--help` this generates a form UI
-- Auto casts arguments to the correct type
+- Auto casts parameters to the correct type
 - Deals with defaults intelligently
-- If you also use bootstrap, just works including full UI and styling without any setup beyond importing.
+- If you also use bootstrap, just works including full UI and styling without any setup beyond importing
 
 Example:
 -----------
   In your python:
+  
 ```python
   parser = paramparse.ParamParser()
   parser.add('num', desc='Number of things (an int)', default=1000, type=int)
@@ -20,6 +21,7 @@ Example:
   form_data = parser.form_data_json() # send this data to the client
 ```
   In your javascript:
+  
 ```javascript
   $.bootstrapParamsForm.create(formData) // you need to pass in the form_data from the python
 ```

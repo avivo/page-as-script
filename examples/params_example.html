@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Parameter </title>
+    <link rel="stylesheet" href="../lib/bootstrap/bootstrap.css">	
+    <link rel="stylesheet" href="../params.css">	
+    <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../lib/dform/dform.js"></script>
+    <script type="text/javascript" src="../params.js"></script>
+    <script type="text/javascript"> 
+      var params = %(params)s;
+      var formData = %(formdata)s
+      document.title = params.pageTitle || document.title
+
+      $(document).ready(function() {
+        $.bootstrapParamsForm.create(
+          formData, 
+          {showForm: params.showForm == true, prependTo: '#container'});
+      });
+    </script>
+  </head>
+  <body>
+    <div id="container"></div>
+    %(page_content)s
+  </body>
+</html>

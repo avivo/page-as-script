@@ -37,7 +37,7 @@ def run_cgi_server(dir, port = 8080):
   print "(so do not run this while connected to a public network without a firewall)"
   from BaseHTTPServer import HTTPServer
   from CGIHTTPServer import CGIHTTPRequestHandler
-  CGIHTTPRequestHandler.cgi_directories.append('/examples')
+  CGIHTTPRequestHandler.cgi_directories.append(dir)
   serveradresse = ("", 8080)
   server = HTTPServer(serveradresse, CGIHTTPRequestHandler)
   server.serve_forever()

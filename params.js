@@ -28,8 +28,10 @@
       // creates action for 'submit' button (not a true submit button)
       $('#page-reload-button').on('click', function() {
         var formValues = $(settings.formContainer).children().serializeArray();
+        // ensures it does not send data about unfilled fields
+        var formValuesFiltered = $.grep(formValues, function(e) {return e.name && e.value;});
         // uses location.assign since that forces a page reload
-        window.location.assign(window.location.pathname + '?' + $.param(formValues));
+        window.location.assign(window.location.pathname + '?' + $.param(formValuesFiltered));
       });
       $(settings.button).on('click', _toggleForm);
       settings.onFormReady(settings);

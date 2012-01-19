@@ -18,7 +18,7 @@ input {
 #params-form-container label {
 	width: 250px;
 }
-#params-form-container input, #params-form-container select {
+#params-form-container input, #params-form-container select,  #params-form-container textarea {
 	margin-left: 20px; 
 }
 #params-form-container #page-reload-button {

@@ -4,10 +4,11 @@ class ParamParser(object):
   def __init__(self):
     self.params_schema = []
 
-  def add(self, name, desc='', default=None, type=str, options=[], required=False):  
+  def add(self, name, desc='', default=None, type=str, options=[], required=False , longer=False):  
     param = {'name': name}
     param['type'] = type
     param['desc'] = desc if desc else name
+    param['longer'] = longer
     # only add a default to a schema if it is explicitly given
     if default != None:
       param['default'] = default
@@ -23,7 +24,6 @@ class ParamParser(object):
         params_dict[name] = param['type'](params_dict[name])
       elif 'default' in param:
         params_dict[name] = param['default']
-
     return params_dict
   
   def form_data(self, parsed_params=None):
@@ -46,7 +46,10 @@ class ParamParser(object):
         # simply outputs options in the order given, with the same names as values
         form_element['options-ordered'] = param['options']
       elif param['type'] in [str, int]:
-        form_element['type'] = 'text'
+        if param['longer']:
+          form_element['type'] = 'textarea'
+        else:
+          form_element['type'] = 'text'
       elif param['type'] == bool:
         form_element['type'] = 'checkbox'
         if 'value' in form_element and form_element['value'] == True:

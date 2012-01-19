@@ -1,12 +1,13 @@
 #!/usr/bin/python
 # This should be run as a cgi script from ../run_examples.py
 
-# import cruft to make everything work...
-import json
+# import cruft to make everything work for cgi...
 import examples_util
 examples_util.cgi_setup()
 examples_util.add_parent_dir_to_python_path()
+# imports needed for code on real webservers
 import paramparse
+import json
 
 # Create a parser
 parser = paramparse.ParamParserCGI()
@@ -14,7 +15,7 @@ parser = paramparse.ParamParserCGI()
 # Add some parameters
 parser.add('pageTitle', desc='Page title', default='Title of this Page', type=str)
 parser.add('num', desc='Number of things (an int)', default=1000, type=int)
-parser.add('s', desc='Any string, no default', type=str)
+parser.add('s', desc='Any string, no default', type=str, longer=True)
 parser.add('color', desc='A color', default='red', type=str, options=['red', 'blue', 'green', 'black'])
 parser.add('showForm', desc='Show this form on page load', type=bool, default=False)
 

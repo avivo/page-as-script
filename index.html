@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>page-as-script by avivo</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">page-as-script</h1>
+        <p class="header">argparse for the web</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/avivo/page-as-script/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/avivo/page-as-script/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/avivo/page-as-script">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/avivo">avivo</a></p>
+
+
+      </header>
+      <section>
+        <h1>Page as Script</h1>
+
+<p>Lets you treat writing a dynamically generated web page with parameters just like writing a script with arguments. </p>
+
+<ul>
+<li>Instead of <code>--help</code> this generates a form UI</li>
+<li>Auto casts parameters to the correct type</li>
+<li>Deals with defaults intelligently</li>
+<li>If you also use bootstrap, just works including full UI and styling without any setup beyond importing</li>
+</ul><h2>Example:</h2>
+
+<p>In your python:</p>
+
+<div class="highlight"><pre>  <span class="n">parser</span> <span class="o">=</span> <span class="n">paramparse</span><span class="o">.</span><span class="n">ParamParser</span><span class="p">()</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">'s'</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">'Any string, no default'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">'num'</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">'Number of things (an int)'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">'color'</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">'A color'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s">'red'</span><span class="p">,</span> <span class="s">'blue'</span><span class="p">,</span> <span class="s">'green'</span><span class="p">,</span> <span class="s">'black'</span><span class="p">])</span>
+  <span class="n">parser</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">'showForm'</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">'Show this form on page load'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+  <span class="n">params</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">({</span><span class="s">'color'</span><span class="p">:</span> <span class="s">'green'</span><span class="p">})</span> <span class="c"># replace this dict with the string url parameter dict from the request</span>
+  <span class="n">form_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">form_data_json</span><span class="p">()</span> <span class="c"># send this data to the client</span>
+
+  <span class="c"># access the params as a dictionary, they are now cast to the correct types, with the given defaults</span>
+  <span class="k">print</span> <span class="n">params</span><span class="p">[</span><span class="s">'num'</span><span class="p">]</span> <span class="c"># prints 1000</span>
+</pre></div>
+
+<p>In your javascript:</p>
+
+<div class="highlight"><pre>  <span class="nx">$</span><span class="p">.</span><span class="nx">bootstrapParamsForm</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">formData</span><span class="p">)</span> <span class="c1">// you need to pass in the form_data from the python</span>
+</pre></div>
+
+<h2>Running the example:</h2>
+
+<p>Run <code>python run_example.py</code> and follow the instructions to see the page.
+  See <code>params_example.html</code> in the <code>examples</code> directory for the source (uses default bootstrap styling). </p>
+
+<h2>Dependencies:</h2>
+
+<p>jquery, dform, bootstrap</p>
+
+<h2>Bugs/Limitations</h2>
+
+<ul>
+<li>Python only works with str/bool/int currently</li>
+<li>Only False works as a boolean default</li>
+<li>Possibly some subtle issues from going between json/python</li>
+<li>May not work with older versions of jquery</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

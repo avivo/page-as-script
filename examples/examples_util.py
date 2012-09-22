@@ -38,6 +38,6 @@ def run_cgi_server(dir, port = 8080):
   from BaseHTTPServer import HTTPServer
   from CGIHTTPServer import CGIHTTPRequestHandler
   CGIHTTPRequestHandler.cgi_directories.append(dir)
-  serveradresse = ("", 8080)
+  serveradresse = ("", port)
   server = HTTPServer(serveradresse, CGIHTTPRequestHandler)
   server.serve_forever()
